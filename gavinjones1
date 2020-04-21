@@ -47,6 +47,17 @@ void setup()
 
 }
 
+void blinkYellowLight(int yellowLED)
+{
+  for ( int i = 0 ; i < 5 ; i++ ) //forces yellow to blink
+  {
+    digitalWrite(yellowLED, LOW);
+    delay(yellowBlinkTime);
+    digitalWrite(yellowLED, HIGH);
+    delay(yellowBlinkTime);
+  }
+}
+
 void loop()
 {
   if ( digitalRead(westButton) == HIGH ) //tell traffic to move west to east
@@ -64,23 +75,26 @@ void loop()
       digitalWrite(eastYellow, LOW);
       digitalWrite(eastRed, HIGH);
       delay(changeDelay);
-      for ( int i = 0; i < 5; i++ ) //tells yellow light to blink
-      {
-        digitalWrite(westYellow, LOW);
-        delay(yellowBlinkTime);
-        digitalWrite(westYellow, HIGH);
-        delay(yellowBlinkTime);
-      }
+
+      blinkYellowLight(westYellow);
+      /*  for ( int i = 0; i < 5; i++ ) //tells yellow light to blink
+        {
+          digitalWrite(westYellow, LOW);
+          delay(yellowBlinkTime);
+          digitalWrite(westYellow, HIGH);
+          delay(yellowBlinkTime);
+        }
+      */
       digitalWrite(westYellow, LOW);
       digitalWrite(westRed, LOW); // changes west-facing lights to green
       digitalWrite(westGreen, HIGH);
 
       digitalWrite(westpedlightGreen, HIGH);  // west ped go
       digitalWrite(westpedlightBlue, LOW);
-      
+
       digitalWrite(eastpedlightBlue, HIGH);   // east ped stopped
       digitalWrite(eastpedlightGreen, LOW);
-      
+
     }
   }
 
@@ -96,22 +110,26 @@ void loop()
       digitalWrite(westYellow, LOW);
       digitalWrite(westRed, HIGH);
       delay(changeDelay);
-      for ( int i = 0 ; i < 5 ; i++ ) //forces yellow to blink
-      {
-        digitalWrite(eastYellow, LOW);
-        delay(yellowBlinkTime);
-        digitalWrite(eastYellow, HIGH);
-        delay(yellowBlinkTime);
-      }
+
+      blinkYellowLight(eastYellow);
+      /* for ( int i = 0 ; i < 5 ; i++ ) //forces yellow to blink
+        {
+         digitalWrite(eastYellow, LOW);
+         delay(yellowBlinkTime);
+         digitalWrite(eastYellow, HIGH);
+         delay(yellowBlinkTime);
+        }
+      */
+
       digitalWrite(eastYellow, LOW);
       digitalWrite(eastRed, LOW); // change east-facing green
       digitalWrite(eastGreen, HIGH);
-      
- // east ped go
-      digitalWrite(eastpedlightGreen, HIGH);
-      digitalWrite(eastpedlightBlue, LOW);   
 
-       // west ped stop
+      // east ped go
+      digitalWrite(eastpedlightGreen, HIGH);
+      digitalWrite(eastpedlightBlue, LOW);
+
+      // west ped stop
       digitalWrite(westpedlightBlue, HIGH);
       digitalWrite(westpedlightGreen, LOW);
     }
