@@ -58,6 +58,15 @@ void blinkYellowLight(int yellowLED)
   }
 }
 
+void greenToYellow(int Green, int Yellow)
+{
+  digitalWrite(Green, LOW); //changes east light from green to yellow, red
+
+
+      digitalWrite(Yellow, HIGH);
+      delay(changeDelay);
+}
+
 void loop()
 {
   if ( digitalRead(westButton) == HIGH ) //tell traffic to move west to east
@@ -67,11 +76,14 @@ void loop()
     {
       trafficWest = true; // change traffic flow flag west to east
       delay(flowTime);  // gives time for traffic
+      /*
       digitalWrite(eastGreen, LOW); //changes east light from green to yellow, red
 
 
       digitalWrite(eastYellow, HIGH);
       delay(changeDelay);
+      */
+      greenToYellow(eastGreen, eastYellow);
       digitalWrite(eastYellow, LOW);
       digitalWrite(eastRed, HIGH);
       delay(changeDelay);
@@ -104,9 +116,12 @@ void loop()
     {
       trafficWest = false; // changes traffic flow
       delay(flowTime);  // gives time for traffic flow
+      /*
       digitalWrite (westGreen, LOW);
       digitalWrite(westYellow, HIGH);
       delay(changeDelay);
+      */
+      greenToYellow(westGreen, westYellow);
       digitalWrite(westYellow, LOW);
       digitalWrite(westRed, HIGH);
       delay(changeDelay);
